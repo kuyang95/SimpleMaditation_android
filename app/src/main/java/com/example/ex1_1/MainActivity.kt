@@ -1,8 +1,10 @@
 package com.example.ex1_1
 
 import android.animation.ArgbEvaluator
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_main.*
+import java.security.AccessController.getContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,8 +60,14 @@ class MainActivity : AppCompatActivity() {
 
 
             override fun onPageSelected(position: Int) {
-                viewpager2.setBackgroundColor(Color.parseColor("#00ff00"))
+
                 super.onPageSelected(position)
+                if (position == 1){
+                    val mediaPlayer = MediaPlayer.create(viewpager2.context,R.raw.rain)
+                    mediaPlayer.start()
+                    Log.v("come","come")
+                }
+
             }
 
             override fun onPageScrolled(
@@ -104,12 +113,22 @@ class ViewPager2Adapter(fm : FragmentActivity) : FragmentStateAdapter (fm) {
 }
 
 class first_fragment() : Fragment(){
+
+    lateinit var mainActivity: MainActivity
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment1, container, false)
+
+    // Fragment 에서 context 얻기 위함
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        mainActivity = context as MainActivity
     }
+}
 
 class second_fragment() : Fragment(){
     override fun onCreateView(

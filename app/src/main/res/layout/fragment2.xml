@@ -3,20 +3,45 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="3"
     >
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/content2">
+        android:layout_height= "0dp"
+        android:layout_weight="1"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height= "0dp"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:orientation="vertical"
+        >
 
         <TextView
-            android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:textSize="50sp"
-            android:text="학교"/>
-    </ScrollView>
+            android:text="바다"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:src="@drawable/sea"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height= "0dp"
+        android:layout_weight="1"
+        />
 </LinearLayout>
