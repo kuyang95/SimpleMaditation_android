@@ -15,7 +15,7 @@
         android:lineSpacingMultiplier="1.2"
         android:text="Rain"
         android:textColor="#002850"
-        android:textSize="40sp"
+        android:textSize="37sp"
         android:layout_marginBottom="200dp"
 
         />
