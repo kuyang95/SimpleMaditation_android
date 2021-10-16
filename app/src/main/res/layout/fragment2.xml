@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3"
+    android:id="@+id/frag2"
     >
 
-
-
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height= "0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#004f4f"
+        android:text="Sea"
+        android:textSize="40sp"
+        android:layout_marginBottom="200dp"
+
+        />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:src="@drawable/sea"
+        android:layout_marginTop="30dp"
+
         />
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height= "0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:layout_gravity="top"
-        android:id="@+id/frag2">
-
-        <org.firezenk.bubbleemitter.BubbleEmitterView
-            android:id="@+id/bubbleEmitter2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:lineSpacingMultiplier="1.2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="50sp"
-            android:text="Sea"
-            android:gravity="center_horizontal"
-
-            />
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/sea"
-            android:layout_marginTop="70dp"
-            />
-
-
-
-
-    </FrameLayout>
-
-
-
-
-</LinearLayout>
+</FrameLayout>

@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/myStatusBarColor</item> <!-- 상태바 컬러 -->
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="windowActionBar">false</item> <!-- 액션바 없애는 코드 -->
