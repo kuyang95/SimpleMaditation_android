@@ -1,22 +1,32 @@
 package com.example.ex1_1
 
 import android.animation.ArgbEvaluator
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.AccessController.getContext
+
+import kotlinx.android.synthetic.main.fragment1.bubbleEmitter1
+import kotlinx.android.synthetic.main.fragment2.bubbleEmitter2
+import kotlinx.android.synthetic.main.fragment3.bubbleEmitter3
+import org.firezenk.bubbleemitter.BubbleEmitterView
+import kotlin.math.abs
+import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewpager2 : ViewPager2
     val argbEvaluator: ArgbEvaluator = ArgbEvaluator()
     val context : Context = this
+
+
     lateinit var colors : IntArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                 Color.parseColor("#bcaaff"),
                 Color.parseColor("#ceffaa"),
                 Color.parseColor("#ffcabc")
-
             )
 
 
@@ -42,8 +53,32 @@ class MainActivity : AppCompatActivity() {
         viewpager2 = findViewById(R.id.pager)
         viewpager2.adapter = ViewPager2Adapter(this)
         manageViewPagerScrollActions(ViewPager2Adapter(this))
+        val springDotsIndicator = findViewById<SpringDotsIndicator>(R.id.spring_dots_indicator)
+        springDotsIndicator.setViewPager2(viewpager2)
         //viewpager2.setPageTransformer(TransformPage(viewpager2))
 
+
+
+    }
+
+
+
+
+    // 거품제조기
+    fun emitBubbles(count : Int, bubbleEmitterView: BubbleEmitterView) {
+        // It will create a thread and attach it to
+        // the main thread
+        if (count > 0 ) {
+            Handler().postDelayed({
+                // Random is used to select random bubble
+                // size
+                val size = Random.nextInt(20, 80)
+                bubbleEmitterView.emitBubble(size)
+
+
+                emitBubbles(count - 1, bubbleEmitterView)
+            }, Random.nextLong(10, 30))
+            }
     }
 
     override fun onBackPressed() {
@@ -58,15 +93,55 @@ class MainActivity : AppCompatActivity() {
     fun manageViewPagerScrollActions(pagerAdapter: ViewPager2Adapter) {
         viewpager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
+            var mediaPlayer : MediaPlayer = MediaPlayer()
+
+
 
             override fun onPageSelected(position: Int) {
-
                 super.onPageSelected(position)
-                if (position == 1){
-                    val mediaPlayer = MediaPlayer.create(viewpager2.context,R.raw.rain)
-                    mediaPlayer.start()
-                    Log.v("come","come")
+
+            //var inflater : LayoutInflater =
+                //var view1 : View = inflater.inflate(R.layout.bubble, findViewById(R.id.frag1), false)
+
+               // var view2 : View = inflater.inflate(R.layout.bubble, viewpager2, false)
+                //var view3 : View = inflater.inflate(R.layout.bubble, R.id.frag3 as FrameLayout, false)
+                lateinit var frag : FrameLayout
+
+
+
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
                 }
+
+                    when (position) {
+                        0 -> {
+                            mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.forest)
+
+                            frag = findViewById(R.id.frag1)
+                            emitBubbles(10, bubbleEmitter1)
+                           //frag.addView(view1)
+                        }
+                        1 -> {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.sea)
+
+
+                            frag = findViewById(R.id.frag2)
+                            emitBubbles(10, bubbleEmitter2)
+                           // frag.addView(view2)
+                        }
+                        2 ->  {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.rain)
+
+
+                            frag = findViewById(R.id.frag3)
+                            emitBubbles(10, bubbleEmitter3)
+                            //inflater = LayoutInflater.from(context)
+                          //  frag.addView(inflater.inflate(R.layout.bubble,frag, false))
+                        }
+                }
+
+
+
+
+                mediaPlayer.start()
 
             }
 
@@ -154,7 +229,7 @@ class third_fragment() : Fragment(){
 class TransformPage (var viewPager2 : ViewPager2): ViewPager2.PageTransformer{
 
     override fun transformPage(page: View, position: Float) {
-        /*
+
         val pageWidth = page.width
         val pageWidthTimesPosition = pageWidth * position
         val absPosition = abs(position)
@@ -169,7 +244,7 @@ class TransformPage (var viewPager2 : ViewPager2): ViewPager2.PageTransformer{
             page.translationX = -pageWidthTimesPosition
             page.alpha = 1.0f - absPosition
             page.translationX = -pageWidthTimesPosition
-        }*/
+        }
     }
 
 

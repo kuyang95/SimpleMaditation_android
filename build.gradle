@@ -18,6 +18,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' } // 버블 애니메이션을 위한 코드
     }
 }
 
