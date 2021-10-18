@@ -15,7 +15,7 @@ Why I planned this project:
 + 내가 사용하는 서비스 내가 개발하기 위해서
 
 ## 서비스 소개
-플레이스토어에 올린 서비스 소개입니다. <br>
+플레이스토어에서 보여지는 소개 스크린샷 <br>
 
 ![image](https://user-images.githubusercontent.com/11024746/137753748-b2da4213-1592-494c-bd38-6aa3864e5ed7.png)
 
