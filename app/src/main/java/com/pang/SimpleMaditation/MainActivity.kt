@@ -26,14 +26,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewpager2 : ViewPager2
     val argbEvaluator: ArgbEvaluator = ArgbEvaluator()
-    val context : Context = this
-
+    var mediaPlayer : MediaPlayer = MediaPlayer()
 
     lateinit var colors : IntArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
             colors = intArrayOf(
                 Color.parseColor("#83a58e"),
@@ -43,27 +41,29 @@ class MainActivity : AppCompatActivity() {
                 Color.parseColor("#8f8f8f")
             )
 
-
-
-
-
         viewpager2 = findViewById(R.id.pager)
         viewpager2.adapter = ViewPager2Adapter(this)
         manageViewPagerScrollActions(ViewPager2Adapter(this))
         val wormDotsIndicator = findViewById<WormDotsIndicator>(R.id.worm_dots_indicator)
         wormDotsIndicator.setViewPager2(viewpager2)
-        viewpager2.setPageTransformer(TransformPage(viewpager2))
+        viewpager2.setPageTransformer(TransformPage())
         emitBubbles()
-
-
-
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        mediaPlayer.start()
+    }
 
+    override fun onPause() {
+        super.onPause()
+
+        mediaPlayer.pause()
+    }
 
     // 거품제조기
-    fun emitBubbles() {
+    private fun emitBubbles() {
         // It will create a thread and attach it to
         // the main thread
 
@@ -89,12 +89,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun manageViewPagerScrollActions(pagerAdapter: ViewPager2Adapter) {
+    private fun manageViewPagerScrollActions(pagerAdapter: ViewPager2Adapter) {
         viewpager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
-            var mediaPlayer : MediaPlayer = MediaPlayer()
-
-
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -105,11 +101,9 @@ class MainActivity : AppCompatActivity() {
 
                     when (position) {
                         0 -> {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.forest)
-
                         }
 
                         1 -> {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.sea2)
-
                         }
 
                         2 ->  {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.rain)
@@ -121,13 +115,8 @@ class MainActivity : AppCompatActivity() {
                         4 ->  {mediaPlayer = MediaPlayer.create(viewpager2.context, R.raw.piano)
                         }
                 }
-
-
-
                 mediaPlayer.isLooping = true
                 mediaPlayer.start()
-
-
             }
 
             override fun onPageScrolled(
@@ -159,12 +148,12 @@ class ViewPager2Adapter(fm : FragmentActivity) : FragmentStateAdapter (fm) {
     }
 
     override fun createFragment(position: Int): Fragment {
-        when (position) {
-            0 -> return first_fragment()
-            1 -> return second_fragment()
-            2 -> return third_fragment()
-            3 -> return fourth_fragment()
-            else -> return fifth_fragment()
+        return when (position) {
+            0 -> first_fragment()
+            1 -> second_fragment()
+            2 -> third_fragment()
+            3 -> fourth_fragment()
+            else -> fifth_fragment()
         }
     }
 }
@@ -178,13 +167,6 @@ class first_fragment() : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment1, container, false)
-
-    // Fragment 에서 context 얻기 위함
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        mainActivity = context as MainActivity
-    }
 }
 
 class second_fragment() : Fragment(){
@@ -201,10 +183,6 @@ class third_fragment() : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment3, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }
 
 class fourth_fragment() : Fragment(){
@@ -213,10 +191,6 @@ class fourth_fragment() : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment4, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }
 
 class fifth_fragment() : Fragment(){
@@ -225,14 +199,10 @@ class fifth_fragment() : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment5, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }
 
 
-class TransformPage (var viewPager2 : ViewPager2): ViewPager2.PageTransformer {
+class TransformPage (): ViewPager2.PageTransformer {
 
     override fun transformPage(page: View, position: Float) {
 
