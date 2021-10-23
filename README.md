@@ -1,8 +1,7 @@
 # 간단 명상
 Project Description: <br>
 
-간단 명상 플레이스토어 링크 https://play.google.com/store/apps/details?id=com.pang.SimpleMaditation <br><br>
-초기버전 개발기간: 21/10/01 - 21/10/18 <br>
+간단 명상 플레이스토어 링크: https://play.google.com/store/apps/details?id=com.pang.SimpleMaditation <br><br>
 
 간단 명상은 자연의 소리로 명상을 돕는 건강관련 어플리케이션 입니다. <br>
 (서비스의 원활한 이용을 위해 SDK버전 24 이상의 안드로이드 스마트폰이 필요합니다)
