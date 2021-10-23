@@ -10,8 +10,8 @@ android {
         applicationId "com.pang.SimpleMaditation"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,6 +22,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 }
 
 dependencies {
@@ -32,7 +42,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.github.FireZenk:BubbleEmitter:-SNAPSHOT' // 버블 애니메이션을 위한 코드
-    implementation 'com.tbuonomo:dotsindicator:4.2' // dots indicator 을 위한 코드
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.google.android.material:material:1.3.0'// dots indicator 을 위한 코드
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
